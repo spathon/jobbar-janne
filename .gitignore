@@ -35,4 +35,10 @@ node_modules
 # SSL
 ssl/*
 
+#
+.DS_Store
+public/js/app.js
+public/js/app.js.map
+public/service-worker.js
+
 !*/.gitkeep
