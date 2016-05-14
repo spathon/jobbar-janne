@@ -37,6 +37,7 @@ ssl/*
 
 #
 .DS_Store
+tmp
 public/css
 public/js
 public/sw.js
