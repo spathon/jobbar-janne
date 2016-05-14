@@ -4,11 +4,9 @@
  * Module dependencies.
  */
 
-const app = require('../app');
+const app = require('../server');
 const debug = require('debug')('jobbar-janne:server');
-const https = require('https');
-const path = require('path');
-const fs = require('fs');
+const http = require('http');
 
 /**
  * Get port from environment and store in Express.
@@ -21,14 +19,8 @@ app.set('port', port);
  * Create HTTP server.
  */
 
-const options = {
-  key: fs.readFileSync(path.resolve(__dirname, '..', 'ssl/server.key')),
-  cert: fs.readFileSync(path.resolve(__dirname, '..', 'ssl/server.crt')),
-  requestCert: false,
-  rejectUnauthorized: false
-};
 
-const server = https.createServer(options, app);
+const server = http.createServer(app);
 
 /**
  * Listen on provided port, on all network interfaces.
