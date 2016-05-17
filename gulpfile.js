@@ -39,7 +39,7 @@ gulp.task('sw', () => {
 
 gulp.task('nodemon', () => {
   return nodemon({
-    watch: './**/*.js',
+    watch: __dirname +'/**/*.js',
     ignore: [
       '.git',
       'site/node_modules',
