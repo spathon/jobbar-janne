@@ -1,6 +1,6 @@
-(function(d, window) {
+(function(d, w) {
 
-  const answer = window.isWorking();
+  const answer = w.isWorking();
   const heading = d.getElementById('answer');
 
   heading.textContent = answer ? 'Ja' : 'Nej';
