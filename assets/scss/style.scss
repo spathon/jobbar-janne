@@ -29,6 +29,53 @@ h1 {
     4px 4px 0 #809095,
     5px 5px 0 #809095,
     6px 6px 0 #809095;
-  font-size: 25rem;
+  font-size: 10rem;
+  font-size: 45vw;
   margin: 0;
+  @media only screen and (min-width: 700px) {
+    font-size: 20rem;
+  }
+}
+
+.loader {
+  display: block;
+  margin: 60px auto;
+  font-size: 10px;
+  position: relative;
+  text-indent: -9999em;
+  border-top: 1.5em solid rgba(255, 255, 255, 0.2);
+  border-right: 1.5em solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1.5em solid rgba(255, 255, 255, 0.2);
+  border-left: 1.5em solid #ffffff;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-animation: load8 1s infinite linear;
+  animation: load8 1s infinite linear;
+}
+.loader,
+.loader:after {
+  border-radius: 50%;
+  width: 10em;
+  height: 10em;
+}
+@-webkit-keyframes load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
 }

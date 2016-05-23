@@ -4,6 +4,7 @@ const gulp = require('gulp');
 const sass = require('gulp-sass');
 const babel = require('gulp-babel');
 const concat = require('gulp-concat');
+const uglify = require('gulp-uglify');
 const nodemon = require('gulp-nodemon');
 const sourcemaps = require('gulp-sourcemaps');
 
@@ -11,7 +12,7 @@ const sourcemaps = require('gulp-sourcemaps');
 gulp.task('scss', () => {
   return gulp.src('./assets/scss/style.scss')
     .pipe(sourcemaps.init())
-      .pipe(sass().on('error', sass.logError))
+      .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest('public/css'));
 });
@@ -20,8 +21,9 @@ gulp.task('scss', () => {
 gulp.task('js', () => {
   return gulp.src('./assets/js/*.js')
     .pipe(sourcemaps.init())
-      .pipe(babel())
       .pipe(concat('app.js'))
+      .pipe(babel())
+      .pipe(uglify())
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest('public/js/'));
 });
@@ -30,8 +32,9 @@ gulp.task('js', () => {
 gulp.task('sw', () => {
   return gulp.src('./assets/sw.js')
     .pipe(sourcemaps.init())
-      .pipe(babel())
       .pipe(concat('sw.js'))
+      .pipe(babel())
+      .pipe(uglify())
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest('public/'));
 });

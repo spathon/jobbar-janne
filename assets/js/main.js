@@ -1,5 +1,9 @@
-(function(){
-  'use strict';
+(function(d, window) {
+
+  const answer = window.isWorking();
+  const heading = d.getElementById('answer');
+
+  heading.textContent = answer ? 'Ja' : 'Nej';
 
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker
@@ -15,4 +19,4 @@
         console.log('ServiceWorker registration failed: ', err);
       });
   }
-})();
+})(document, window);
