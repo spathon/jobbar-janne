@@ -1,6 +1,7 @@
 'use strict';
 
 const gulp = require('gulp');
+const pug = require('gulp-pug');
 const sass = require('gulp-sass');
 const babel = require('gulp-babel');
 const concat = require('gulp-concat');
@@ -40,6 +41,13 @@ gulp.task('sw', () => {
 });
 
 
+gulp.task('views', function buildHTML() {
+  return gulp.src('views/index.pug')
+    .pipe(pug())
+    .pipe(gulp.dest('public/'));
+});
+
+
 gulp.task('nodemon', () => {
   return nodemon({
     watch: __dirname +'/**/*.js',
@@ -61,6 +69,9 @@ gulp.task('watch', () => {
   gulp.watch('assets/scss/**/*.scss', ['scss']);
   gulp.watch('assets/**/*.js', ['js', 'sw']);
 });
+
+
+gulp.task('prod', ['js', 'sw', 'scss', 'views'])
 
 gulp.task('default', ['watch', 'nodemon'])
 
