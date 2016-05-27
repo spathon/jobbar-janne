@@ -8,11 +8,12 @@ console.info('Hello, I\'m your worker for ther day.');
 //       This should probably always fetch answer from server
 //       Or better calculate the answer offline
 
-const cacheName = 'jobbar-janne-0.1';
+const cacheName = 'jobbar-janne-0.1.1';
 const files = [
   '/',
   '/css/style.css',
   '/js/app.js',
+  '/manifest.json',
   '/img/golf-car.jpg'
 ]
 
@@ -28,27 +29,38 @@ self.addEventListener('install', (event) => {
   );
 });
 
-
 self.addEventListener('activate', (event) => {
-  console.log('[SW] Activate');
+  console.log('[SW] activate');
   event.waitUntil(
+    // Delete old cache
     caches.keys().then((keyList) => {
       return Promise.all(keyList.map((key) => {
-        console.log('[SW] Removing old cache', key);
-        if (key !== cacheName) return caches.delete(key);
+        if (key !== cacheName) {
+          console.log('[SW] Removing old cache', key);
+          return caches.delete(key);
+        }
       }));
     })
   );
 });
 
-
 self.addEventListener('fetch', (event) => {
-  // console.log('[SW] Fetch', event.request.url);
-  event.respondWith(
-    caches.match(event.request)
-      .then((cached) => {
-        // Update with network
-        return cached;
-      })
-    );
+  // console.log('[SW] Fetch', event.request);
+  let isCacheFile = false;
+  for (const file of files) {
+    if (event.request.url.endsWith(file)) {
+      isCacheFile = true;
+      break;
+    }
+  }
+  if(isCacheFile) {
+    event.respondWith(
+      caches.match(event.request)
+        .then((cached) => {
+          console.log('Cached: ', event.request.url);
+          // Update with network
+          return cached;
+        })
+      );
+  }
 });
